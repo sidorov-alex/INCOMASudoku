@@ -1,0 +1,36 @@
+.gameBoard {
+  margin: 1em auto;
+}
+
+.gameRow:first-child {
+  border-top: solid;
+}
+
+.gameRow:nth-child(3n) td {
+  border-bottom: solid;
+}
+
+.gameColumn {
+  height: 30px;
+  width: 30px;
+  border: 1px solid;
+  text-align: center;
+}
+
+.gameColumn:first-child {
+  border-left: solid;
+}
+
+.gameColumn:nth-child(3n) {
+  border-right: solid;
+}
+
+.baseCell {
+  font-weight: bold;
+}
+
+.selectedCell {
+  background-color: antiquewhite;
+  height: 26px;
+  width: 26px;
+}

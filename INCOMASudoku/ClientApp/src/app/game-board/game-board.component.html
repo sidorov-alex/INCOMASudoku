@@ -1,0 +1,10 @@
+<table class="gameBoard">
+  <tr class="gameRow" *ngFor="let row of cells; let i = index">
+    <td class="gameColumn" *ngFor="let cell of row; let j = index" (click)="onCellClick(i, j)">
+      <div *ngIf="cell.n != 0" [ngClass]="{'baseCell': cell.isBase}">
+        {{cell.n}}
+      </div>
+      <div *ngIf="cell.n == 0" [ngClass]="{'selectedCell': isSelected(i, j)}"> </div>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,22 @@
+<div style="display: inline;" *ngIf="isGameStarted">
+  <button (click)="startNewGame()">Новая игра</button>
+  <button (click)="showTopPlayers()">Топ игроков</button>
+</div>
+<div style="display: inline" *ngIf="!isGameStarted">
+  <p>Имя игрока:</p>
+  <input type="text" #playerName/>
+  <button (click)="joinGame()">Старт</button>
+</div>
+<app-game-board *ngIf="isGameStarted">
+</app-game-board>
+<div style="display: inline;" *ngIf="isGameStarted">
+  <button (click)="onSetDigit(1)">1</button>
+  <button (click)="onSetDigit(2)">2</button>
+  <button (click)="onSetDigit(3)">3</button>
+  <button (click)="onSetDigit(4)">4</button>
+  <button (click)="onSetDigit(5)">5</button>
+  <button (click)="onSetDigit(6)">6</button>
+  <button (click)="onSetDigit(7)">7</button>
+  <button (click)="onSetDigit(8)">8</button>
+  <button (click)="onSetDigit(9)">9</button>
+</div>
