@@ -1,15 +1,15 @@
-<div style="display: inline;" *ngIf="isGameStarted">
+<div *ngIf="isGameStarted" class="buttonsPanel">
   <button (click)="startNewGame()">Новая игра</button>
   <button (click)="showTopPlayers()">Топ игроков</button>
 </div>
-<div style="display: inline" *ngIf="!isGameStarted">
+<div *ngIf="!isGameStarted">
   <p>Имя игрока:</p>
   <input type="text" #playerName/>
-  <button (click)="joinGame()">Старт</button>
+  <button (click)="joinGame(playerName.value)">Начать</button>
 </div>
 <app-game-board *ngIf="isGameStarted">
 </app-game-board>
-<div style="display: inline;" *ngIf="isGameStarted">
+<div *ngIf="isGameStarted" class="digitsPanel">
   <button (click)="onSetDigit(1)">1</button>
   <button (click)="onSetDigit(2)">2</button>
   <button (click)="onSetDigit(3)">3</button>

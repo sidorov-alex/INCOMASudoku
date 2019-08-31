@@ -9,8 +9,6 @@ export class GameBoardComponent implements OnInit {
 
   cells: Cell[][];
 
-  baseCells: Point[] = [];
-
   constructor() {
   }
     
@@ -22,20 +20,11 @@ export class GameBoardComponent implements OnInit {
 
   public setCells(cells: Cell[][]) {
     this.cells = cells;
-
-    //this.baseCells = [];
-
-    //for (var x: number = 0; x < cells.length; x++) {
-    //  for (var y: number = 0; y < cells[x].length; y++) {
-    //    if (cells[x][y] != 0) {
-    //      this.baseCells.push(new Point(x, y));
-    //    }
-    //  }
-    //}
   }
 
   onCellClick(x: number, y: number) {
 
+    // Запоминаем пустую клетку, по которой кликнул пользователь. Она будет выделена цветом.
     if (this.cells[x][y].n == 0) {
       this.selectedX = x;
       this.selectedY = y;
@@ -44,26 +33,15 @@ export class GameBoardComponent implements OnInit {
 
   public setCell(x: number, y: number, n: number) {
 
-    //if (this.selectedX != undefined && this.selectedY != undefined) {
-      this.cells[x][y].n = n;
+    // Ставим цифру в указанную ячейку.
+    this.cells[x][y].n = n;
 
-    //this.baseCells.push(new Point(x, y));
-
+    // Если эта ячейка была выделена, то снимаем выделение.
     if (this.selectedX == x && this.selectedY == y) {
       this.selectedX = undefined;
       this.selectedY = undefined;
     }
-    //}
   }
-
-  //isBaseCell(x: number, y: number) : boolean {
-  //  for (var p of this.baseCells) {
-  //    if (p.X == x && p.Y == y)
-  //      return true;
-  //  }
-
-  //  return false;
-  //}
 
   getSelected(): Point | null {
     if (this.selectedX != undefined && this.selectedY != undefined)

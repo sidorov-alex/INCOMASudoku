@@ -25,10 +25,16 @@ export class GameComponent {
   }
 
   startNewGame() {
+
+    // Начинаем новую игру.
     this.hubConnection.invoke("NewGame");
   }
 
-  joinGame() {
+  joinGame(playerName: string) {
+
+    if (!playerName) {
+      return;
+    }
 
     this.hubConnection
       .start()
@@ -37,32 +43,54 @@ export class GameComponent {
 
         this.isGameStarted = true;
 
-        this.hubConnection.on("NewGame", (data) => {
-          this.board.setCells(data);
+        this.hubConnection.on("NewGame", (cells) => {
+
+          // Задаем начальные клетки на поле.
+          this.board.setCells(cells);
         });
 
         this.hubConnection.on("SetCell", (x, y, n) => {
+
+          // Устаналиваем цифру в указанную клетку.
           this.board.setCell(x, y, n);
         });
 
         this.hubConnection.on("Win", () => {
+
+          // Победа.
           alert("Вы победили.");
         });
 
         this.hubConnection.on("GameOver", (winner) => {
-          alert("Игра закончена. Победил " + winner);
+
+          // Поражение. Выводим имя победителя.
+          alert("Игра закончена. Победил " + winner + ".");
         });
 
         this.hubConnection.on("GetResults", (list: string[]) => {
-          alert(list.join("\r\n"));
+
+          // Отображаем таблицу результатов, если они есть.
+
+          if (list.length == 0) {
+            alert("Нет результатов.");
+          }
+          else {
+            alert(list.map((name, i) => i+1 + ". " + name).join("\r\n"));
+          }
         });
 
-        this.hubConnection.invoke("JoinGame", this.playerName.nativeElement.value);
+        // Присоединяемся к текущей игре. Передаем имя игрока, которое сервер сохранит.
+
+        this.hubConnection.invoke("JoinGame", playerName);
       })
       .catch(err => console.log('Ошибка установки соединения: ' + err))
   }
 
   onSetDigit(n: number) {
+
+    // Задаем цифру в выбранной ранее пользователем клетке через сервер.
+    // Сервер проверит, что эта цифра не конфликтует с другими в строке, колонке и блоке.
+    
     let cell = this.board.getSelected();
 
     if (cell != null) {
